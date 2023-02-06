@@ -1,0 +1,21 @@
+summary{
+  font-size: 2em;
+}
+
+h3{
+  margin-top:  2vh;
+  margin-bottom:  2vh;
+}
+
+hr{
+  margin-bottom: 2vh;
+}
+
+.participants > div{
+  width: 90%;
+}
+
+body{
+  display: flex;
+  flex-direction: column;
+}

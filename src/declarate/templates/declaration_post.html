@@ -1,0 +1,115 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+   <!--    
+   {{ declarationCreateForm.first_name }}
+   {{ declarationCreateForm.last_name }}
+   {{ declarationCreateForm.email }}
+    -->
+
+
+
+           <table>
+            <tr>
+                 <td>{{ lang.first_name }}:</td>
+                 
+                 <td>
+                 {% if participant.first_name != None %}
+                     {{ declarationCreateForm.first_name(value=participant.first_name) }}
+                  {% else %}
+                     {{ declarationCreateForm.first_name }}
+                  {% endif %}
+              </td>
+
+            </tr>
+            <tr>
+                 <td>{{ lang.last_name }}:</td>
+                 <td>
+                  {% if participant.last_name != None %}
+                     {{ declarationCreateForm.last_name(value=participant.last_name) }}
+                  {% else %}
+                     {{ declarationCreateForm.last_name }}
+                  {% endif %}
+                  </td>
+            </tr>
+
+             <tr>
+                 <td>{{ lang.email }}:</td>
+                 <td>
+                  {% if participant.email != None %}
+                     {{ declarationCreateForm.email(value=participant.email) }}
+                  {% else %}
+                     {{ declarationCreateForm.participant.email }}
+                  {% endif %}
+                  </td>
+            </tr>
+            <tr>
+                {% if participant.participant_is_vip %}
+                <td>
+                <p>Płatność za osobę towarzyszącą 350 zł.</p>
+                    
+                </td>
+                {% endif %}
+                 <td>{{ lang.accompanying_person_first_name }}:</td>
+                 <td>{{ declarationCreateForm.accompanying_person_first_name }}</td>
+            </tr>
+            <tr>
+                 <td>{{ lang.accompanying_person_last_name }}:</td>
+                 <td>{{ declarationCreateForm.accompanying_person_last_name }}</td>
+            </tr>
+            <tr>
+                 <td>{{ lang.accompanying_person_email }}:</td>
+                 <td>{{ declarationCreateForm.accompanying_person_email }}</td>
+            </tr>
+            <tr>
+                 <td>{{ lang.division }}</td>
+                   <td>  
+                    <select id="division" name="division" placeholder="Wydarzenie" required="" selected="32">
+                     {% set default_value = participant.division_name %}
+                    {% for d in declarationCreateForm.division.choices %}
+                        <option value="{{ d }}" {% if d.division_name == participant.division_name %} selected="selected" {% endif %} >{{ d }} </option>
+                    {% endfor %}
+                    </select>
+                  </td>
+            </tr>
+
+            <tr>
+                 <td>{{ lang.personal_data_agreemement }}</td>
+                 <td>{{ declarationCreateForm.personal_data }} {{ lang.accept }}</td>
+            </tr>
+            {% if participant.participant_is_vip %}
+            <tr>
+                 <td>{{ lang.car_park }}</td>
+                 <td>{{ declarationCreateForm.car_park }} {{ lang.yes }}</td>
+            </tr>
+            {% endif %}
+
+
+            
+
+   </table>
+       {{ declarationCreateForm.submit }}
+       
+       <button>
+           <a href="{{ url_for('participant.cancel', declaration_string=declaration_string, next=url_for('declarate.get', declaration_string=declaration_string)) }}">{{ lang.quit_event }}</a>
+       </button>
+
+            <p style="color: grey">
+                {{ lang.answer_required }}
+            </p>
+
+        
+    {% if declarationCreateForm.errors %}
+      {% for err in declarationCreateForm.errors %}
+         {% for error in declarationCreateForm.errors.get(err) %}
+
+         <div class="error">
+            <h3>{{err}} {{ error }}</h3>
+         </div>
+         {% endfor %}
+      {% endfor %}
+   {% endif %}
+   
+
+{% endblock %}

@@ -1,0 +1,163 @@
+{% extends "base.html" %}
+
+{% block content %}
+<link rel="stylesheet" href="{{ url_for('declarate.static', filename='styles/style.css') }} ">
+
+    {% if next %}
+         <form method="POST" action="{{ url_for('declarate.update', next=next, declaration_string=declaration_string) }}" enctype="multipart/form-data">
+    {% else%}
+         <form method="POST" action="{{ url_for('declarate.update', declaration_string=declaration_string) }}" enctype="multipart/form-data">
+               
+    {% endif %}
+    {% if declarationCreateForm %}
+      
+      {{ declarationCreateForm.hidden_tag() }}
+      <h1>{{ lang.update_declaration_for }} {{ participant.first_name }} {{ participant.last_name }}</h1>
+
+    <p>{{ lang.contact }}  {{ participant.event_contact_to_organizators }}</p> 
+
+
+         <table>
+            <tr>
+                <td>{{ lang.first_name }}:</td>
+
+                 
+                 <td>
+                 {% if participant.first_name != None %}
+                     {{ declarationCreateForm.first_name(value=participant.first_name) }}
+                  {% else %}
+                     {{ declarationCreateForm.last_name }}
+                  {% endif %}
+              </td>
+
+            </tr>
+            <tr>
+                 <td>{{ lang.last_name }}</td>
+                 <td>
+                  {% if participant.last_name != None %}
+                     {{ declarationCreateForm.last_name(value=participant.last_name) }}
+                  {% else %}
+                     {{ declarationCreateForm.last_name }}
+                  {% endif %}
+                  </td>
+            </tr>
+
+             <tr>
+                 <td>{{ lang.email }}:</td>
+                 <td>
+                  {% if participant.email != None %}
+                     {{ declarationCreateForm.email(value=participant.email) }}
+                  {% else %}
+                     {{ declarationCreateForm.participant.email }}
+                  {% endif %}
+                  </td>
+            </tr>
+
+            <tr>
+               
+                {% if participant.participant_is_vip %}
+                <td>
+                <p>Płatność za osobę towarzyszącą 350 zł.</p>
+                    
+                </td>
+                {% endif %}
+                
+                 <td>{{ lang.accompanying_person_first_name }}:</td>
+                 <td>      
+                     {% if participant.accompanying_person_first_name != None %}
+                        {{ declarationCreateForm.accompanying_person_first_name(value=participant.accompanying_person_first_name) }}
+                     {% else %}
+                         {{ declarationCreateForm.accompanying_person_first_name }}
+                     {% endif %}
+                  </td>
+            </tr>
+            <tr>
+                 <td>{{ lang.accompanying_person_last_name }}:</td>
+                 <td>      {% if participant.accompanying_person_last_name != None %}
+                     {{ declarationCreateForm.accompanying_person_last_name(value=participant.accompanying_person_last_name) }}
+                  {% else %}
+                     {{ declarationCreateForm.accompanying_person_last_name}}
+                  {% endif %}
+               </td>
+            </tr>
+            <tr>
+                 <td>{{ lang.accompanying_person_email }}:</td>
+
+                 <td>      
+                     {% if participant.accompanying_person_email != None %}
+                        {{ declarationCreateForm.accompanying_person_email(value=participant.accompanying_person_email) }}
+
+                     {% else %}
+                        {{ declarationCreateForm.accompanying_person_email }}
+
+                     {% endif %}
+                  </td>
+            </tr>
+            <tr>
+                 <td>{{ lang.division }}:</td>
+                 <td>  
+                    <select id="division" name="division" placeholder="Wydarzenie" required="" selected="32">
+                     {% set default_value = participant.division_name %}
+                    {% for d in declarationCreateForm.division.choices %}
+                        <option value="{{ d }}" {% if d.division_name == participant.division_name %} selected="selected" {% endif %} >{{ d }} </option>
+                    {% endfor %}
+                    </select>
+                  </td>
+            </tr>
+            {{ declarationCreateForm.personal_data(checked=participant.True, class_="personal", type="hidden") }}
+
+            {% if participant.participant_is_vip %}
+
+                 <tr>
+                     <td>{{ lang.car_park }}</td>
+
+                     <td>
+                         {% if participant.car_park  %}
+                            {{ declarationCreateForm.car_park(checked=participant.car_park) }}
+                         {% else %}
+                            {{ declarationCreateForm.car_park }}
+                         {% endif %}
+                         {{ lang.yes }}
+
+                     </td>
+                </tr>
+            {% endif %}
+
+         </table>
+         
+         {{ declarationCreateForm.submit }}
+          <button>
+           <a href="{{ url_for('participant.cancel', declaration_string=declaration_string, next=url_for('declarate.get', declaration_string=declaration_string)) }}">{{ lang.quit_event }}</a>
+       </button>
+       
+            <p style="color: grey">
+                {{ lang.answer_required }}
+            </p>
+
+
+   </form>
+       {% if declarationCreateForm.errors %}
+         {% for err in declarationCreateForm.errors %}
+            {% for error in declarationCreateForm.errors.get(err) %}
+
+            <div class="error">
+               <h3>{{err}} {{ error }}</h3>
+            </div>
+            {% endfor %}
+         {% endfor %}
+      {% endif %}
+  {% endif %}
+  
+{% with messages = get_flashed_messages() %}
+  {% if messages %}
+    <ul class=flashes>
+    {% for message in messages %}
+      <li>{{ message }}</li>
+    {% endfor %}
+    </ul>
+  {% endif %}
+{% endwith %}
+
+
+{% endblock %}
+

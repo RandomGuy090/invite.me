@@ -1,0 +1,110 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+ <link rel="stylesheet" href="{{ url_for('invitation.static', filename='styles/style.css') }} ">
+ <style type="text/css"></style>
+    <div class="email" style="font-family: 'Times New Roman';font-style: italic;">
+        {% if participant %}
+        <h1>{{ lang.invitation }} </h1>
+
+        
+        <img src="{{ participant.event_image_link_header }}">
+        <div class="invitaiton_content" >
+            <div>
+                <!-- {{ participant.event_invitation_email }} -->
+
+            </div>
+            <div class="invited_ppl">
+              <pre style="white-space: pre-wrap;">{{ content }}</pre>
+
+            </div>
+
+           <!--      
+            {% if participant.accompanying_person_email %}
+                <p>z wielką przyjemnośćią pragniemy  iż  {{ participant_first_name_by_user if participant_first_name_by_user else participant.participant_first_name }}
+                {{ participant_last_name_by_user if participant_last_name_by_user else participant.participant_last_name  }}
+                 wraz z osobą towarzyszącą {{ participant. accompanying_first_name }} {{ participant. accompanying_last_name }} na wydarzenie {{ participant.event_name }} które odbędzie się    {{ participant.event_date }} w {{ participant.event_address }}</p>
+
+            {% else %}
+                <p>z wielką przyjemnośćią pragniemy  iż  {{ participant_first_name_by_user if participant_first_name_by_user else participant.participant_first_name }}
+
+                {{ participant_last_name_by_user if participant_last_name_by_user else participant.participant_last_name  }}
+                  na wydarzenie  {{ participant.event_name }} które odbędzie się   {{ participant.event_date }} w {{ participant.event_address }}</p>
+            {% endif %} -->
+
+
+        </div>
+    <p>kontakt do organizatorów: <a href="mailto:{{ participant.event_contact_to_organizators }}">{{participant.event_contact_to_organizators }}</a></p>
+
+     <!--    <p>{{ lang.qr_instrucion }}</p>
+        <p>{{ lang.clicking_on_qr }}</p> -->
+        <div class="qr_codes">
+            {% for inv in imgs %}
+                    <div class="qr_code">
+                        <h4>{{ inv.first_name }}</h4>
+                        <a href="{{ inv.link }}">
+                            <img src="{{ inv.img }}">
+                        </a>
+                    </div>
+            {% endfor %}
+        </div>
+        
+
+
+        {% if participant.event_google_map_link %}
+            <a href="{{ participant.event_google_map_link }}">
+                <button>{{ lang.how_to_get }}</button>
+            </a>
+        {% endif %}
+        {% if participant.event_google_map_iframe %}
+            <iframe src=" {{ participant.event_google_map_iframe }} "></iframe>
+        {% endif %}
+
+        {% if participant.event_place_img %}
+                <img class="place-img" src="{{ participant.event_place_img }}" style="width: 80%;margin-left: 5%;margin-right:  5%; margin-bottom: -1vh; margin-top: 3vh">
+            {% endif%}
+
+    </div>
+    {% endif %}
+    {% if enters %}
+        <table>
+            <tr>
+                <th>date</th>
+                <th>first_name</th>
+                <th>last_name</th>
+                <th>status</th>
+                <th>recorded by</th>
+            </tr>
+
+
+            {% for enter in enters %}
+                {% if enter.enter_has_entered %}
+                    <tr style="background-color: green;">
+                {% else %}
+                    <tr style="background-color: red;">
+                {% endif %}
+
+                    <td>{{ enter.enter_date }}</td>
+                    <td>{{ enter.participant_first_name  if enter.participant_first_name else enter.accompanying_first_name}}</td>
+                    <td>{{ enter.participant_last_name  if enter.participant_last_name else enter.accompanying_last_name}}</td>
+                    <td>{{ enter.enter_has_entered }}</td>
+                    <td>{{ enter.user_recorded_by_id }}</td>
+
+                </tr>
+            {% endfor %}
+        </table>
+    {% endif %}
+{% with messages = get_flashed_messages() %}
+    {% if messages %}
+        <ul class=flashes>
+        {% for message in messages %}
+            <li>{{ message }}</li>
+        {% endfor %}
+        </ul>
+    {% endif %}
+{% endwith %}
+
+   
+ 
+{% endblock %}

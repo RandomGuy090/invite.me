@@ -1,0 +1,37 @@
+ 
+ {% if eventCreateForm  %}
+	  {% if next %}
+               <form method="POST" action="{{ url_for('event.create', next=next) }}" class="event_post_form">
+            {% else%}
+               <form method="POST" action="{{ url_for('event.create') }}" class="event_post_form">
+        {% endif %}
+
+	        <!-- <input type="text" name="name"> -->
+            {{ eventCreateForm.name }}
+                      <input type="datetime-local" name="datetime" id="datetime" >
+                      <input type="datetime-local" name="delcaration_deadline" id="delcaration_deadline" >
+
+            {{ eventCreateForm.address }}
+            {{ eventCreateForm.image_link_header }}
+            {{ eventCreateForm.image_link_footer }}
+            {{ eventCreateForm.google_map_link }}
+            {{ eventCreateForm.google_map_iframe }}
+            {{ eventCreateForm.place_img }}
+            {{ eventCreateForm.declaration_mail_content }}
+            {{ eventCreateForm.invitation_mail_content }}
+            {{ eventCreateForm.contact_to_organizators }}
+            {{ eventCreateForm.submit }}
+            
+	    </form>
+
+
+    {% for err in eventCreateForm.errors %}
+        {% for error in form.errors.get(err) %}
+
+        <div class="error">
+            <h3>{{err}} {{ error }}</h3>
+        </div>
+
+        {% endfor %}
+    {% endfor %}
+{% endif %}

@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block content %}
+	 {% if next %}
+			<form method="POST" action="{{ url_for('admin.register', next=next) }} ">
+    {% else%}
+			<form method="POST" action="{{ url_for('admin.register') }} ">
+           	
+    {% endif %}
+
+		 {{ RegisterAdminForm.hidden_tag() }}
+			 {{ RegisterAdminForm.email }}
+			 
+			 {{ RegisterAdminForm.first_name }}
+			 {{ RegisterAdminForm.last_name }}
+
+			 {{ RegisterAdminForm.password }}
+			 {{ RegisterAdminForm.confirm }}
+			 <label for="verify">verify admin email</label>
+			 {{ RegisterAdminForm.verify }}
+			 
+			 {{ RegisterAdminForm.submit() }}
+
+			{% if RegisterAdminForm.errors %}
+				{% for err in RegisterAdminForm.errors %}
+					{% for error in RegisterAdminForm.errors.get(err) %}
+
+					<div class="error">
+						<h3>{{err}} {{ error }}</h3>
+					</div>
+					{% endfor %}
+				{% endfor %}
+			{% endif %}
+
+		
+			
+	</form>
+
+
+{% endblock %}

@@ -1,0 +1,32 @@
+
+{% block content %}
+
+		 {% if next %}
+				<form method="POST" action="{{ url_for('division.create', next=next) }}" enctype="multipart/form-data">
+            {% else%}
+				<form method="POST" action="{{ url_for('division.create') }}" enctype="multipart/form-data">
+               	
+            {% endif %}
+
+				 {{ divisionCreateForm.csrf_token }}
+				 {{ divisionCreateForm.division_name }}
+				 {{ divisionCreateForm.division_leader }}
+				 {{ divisionCreateForm.event }}
+
+				 {{ divisionCreateForm.submit() }}
+
+				{% if divisionCreateForm.errors %}
+					{% for err in divisionCreateForm.errors %}
+						{% for error in divisionCreateForm.errors.get(err) %}
+
+						<div class="error">
+							<h3>{{err}} {{ error }}</h3>
+						</div>
+						{% endfor %}
+					{% endfor %}
+				{% endif %}
+				
+		</form>
+
+
+{% endblock %}

@@ -1,0 +1,16 @@
+{% extends 'base.html' %} 
+
+{% block css %}
+<link rel="stylesheet" href="{{ url_for('participant.static', filename='styles/style.css') }} ">
+
+{% endblock %}
+
+{% block content %}
+
+{% include 'header.html' %}
+
+ {% include "participants_core.html" %}
+ {% include "create.html" %}
+
+
+{% endblock %}

@@ -1,0 +1,37 @@
+version: '3'
+
+services:
+  nginx:
+    restart: unless-stopped
+    image: nginx:1.15-alpine
+    depends_on:
+      - invite_me
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx/conf/:/etc/nginx/conf.d/:ro
+      - ./certbot/www:/var/www/certbot/:ro
+      - ./certbot/conf/:/etc/nginx/ssl/:ro
+      - ./:/app
+
+
+  certbot:
+    image: certbot/certbot
+    volumes:
+      - ./certbot/www/:/var/www/certbot/:rw
+      - ./certbot/conf/:/etc/letsencrypt/:rw
+
+  invite_me:
+    image: invite_me
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    environment:
+      FLASK_APP: invite_me
+      FLASK_RUN_PORT: 5000
+      LANG: "pl_PL.UTF-8" 
+    
+    volumes:
+      - ./:/app
+

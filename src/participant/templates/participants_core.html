@@ -1,0 +1,131 @@
+{% block content %}
+
+
+<link rel="stylesheet" href="{{ url_for('participant.static', filename='styles/style.css') }} ">
+<table>
+<tr>
+	<th>remove</th>
+	<th>id</th>
+	<th>first_name</th>
+	<th>last_name</th>
+	<th>email</th>
+	<th>event</th>
+	<th>User_email</th>
+	<th>added by user id</th>
+	<th>VIP</th>
+	<th>Declarated</th>
+	<th>Division</th>
+	<th>go to declaration</th>
+	<th>go to invitation</th>
+	<th>event_id</th>
+	<th>send declaration</th>
+	<th>send invitation </th>
+	<th>cancelled</th>
+</tr>
+	{% for particip in participants %}
+	
+
+
+	<tr class="event_name-{{ particip.event_name|replace(' ','_') }} division-{{ particip.division_name }} participant id-{{ particip.participant_id }}">
+
+		<div class="participants">
+			<td>
+				{% if next %}
+		           <form method="POST" action="{{ url_for('participant.delete', user_id=particip.participant_id, next=next) }}">
+		    	{% else%}
+					<form method="POST" action="{{ url_for('participant.delete', user_id=particip.participant_id) }}">
+		    	{% endif %}
+		           	<input type="submit" value="remove user"></form>
+			</td>
+				
+
+			<td id="participant{{  particip.participant_id }}">{{  particip.participant_id }}</td>
+			<td>{{  particip.participant_first_name }}</td>
+			<td> {{  particip.participant_last_name }}</td>
+			<td> {{  particip.participant_email }}</td>
+			<td> {{  particip.event_name }}</td>
+			<td> {{ particip.User_email }}</td>
+			<td> {{ particip.participant_added_by }}</td>
+			<td> {{ particip.participant_is_vip }}</td>
+			{%  if particip.participant_declarated == True%}
+				<td style="background-color: green"> {{ particip.participant_declarated }}</td>
+			{% else %}
+				<td style="background-color: red"> {{ particip.participant_declarated }}</td>
+			{% endif %}
+
+			
+			<td> {{ particip.division_name}}</td>
+			<td> 
+				<a href="{{ url_for('declarate.get', declaration_string=particip.participant_declaration_string) }}">
+					<button>go to declaration</button>
+				</a>
+			</td>
+			<td> 
+				
+				<a href="{{ url_for('invitation.get', invitation=particip.participant_invitation_string, admin=True) }} ">
+					<button>go to invitation</button>
+				</a>
+			</td>
+
+			<td> {{ particip.event_id}}</td>
+			<td>
+				
+				{% if next %}
+				{% set next = next + "#participant" +particip.participant_id|string  %}
+		           <form method="POST" action="{{ url_for('declarate.send', participant=particip.participant_id, event=particip.event_id, next=next) }}">
+		    	{% else%}
+					<form method="POST" action="{{ url_for('declarate.send', participant=particip.participant_id, event=particip.event_id) }}">
+		    	{% endif %}
+		    	{% if particip.participant_declaration_sent  %}
+		           	<input type="submit" style="background-color: red;" value="send declaration">
+		    	{% else %}
+		           	<input type="submit" style="background-color: green;" value="send declaration">
+		    	{% endif %}
+		    	</form>
+					
+				</form>
+
+			</td>
+
+			<td>
+				
+				{% if next %}
+		           <form method="POST" action="{{ url_for('invitation.send', participant=particip.participant_id, event=particip.event_id, next=next) }}">
+		    	{% else%}
+					<form method="POST" action="{{ url_for('invitation.send', participant=particip.participant_id, event=particip.event_id) }}">
+		    	{% endif %}
+
+		    	{% if particip.participant_invitation_sent %}
+		           	<input type="submit" style="background-color: red;" value="send invitation">
+		    	{% else %}
+		           	<input type="submit" style="background-color: green;" value="send invitation">
+		    	{% endif %}
+		    	</form>
+	    	</td>
+		    		
+	    	<td>	
+				{% if next %}
+		           <form method="POST" action="{{ url_for('participant.cancel', participant=particip.participant_id, next=next) }}">
+		    	{% else%}
+					<form method="POST" action="{{ url_for('participant.cancel', participant=particip.participant_id) }}">
+		    	{% endif %}
+
+	    		{% if particip.participant_canceled %}
+		           	<input type="submit" style="background-color: red;" value="uncancel">
+		    	{% else %}
+		           	<input type="submit" style="background-color: green;" value="cancel">
+		    	{% endif %}
+
+					
+				</form>
+
+			</td>
+
+		</div>
+	</tr>
+		{% endfor %}
+</table>
+	 <script type="text/javascript" src="{{ url_for('participant.static', filename='script/script.js') }} "></script>
+
+
+{% endblock %}

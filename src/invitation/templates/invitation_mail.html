@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title></title>
+</head>
+
+	
+
+<body  min-width="220px" align="center" width="100%" style="background-color:  #F4F4F4;font: 1em;font-family: 'Times New Roman';font-style: italic;">
+	{% if content_invitation %}
+		{% set content = content_invitation.content %}
+		{% set imgs = content_invitation.imgs %}
+	{% endif %}
+ <link rel="stylesheet" href="{{ url_for('invitation.static', filename='styles/style.css') }} ">
+
+	<div class="email" align="center" style="background-color: white; border-radius: 15px; box-shadow: 0px 0px 20px #747474;min-width: 30vw;width: 100%; border: 1px solid #C5C5C5; padding-bottom: 2vh">
+		
+		<h1 style="font-family: 'Times New Roman';font-style: italic;">{{ lang.invitation }} </h1>
+		<div class="invitaiton_content" style="padding: 1vw 2vw 0 2vw;">
+				
+				<!-- <img src="https://cdn.discordapp.com/attachments/808678456006934548/1041085676105498675/image.png"style=" width: 175px;"> -->
+			{% if event %}
+
+				<img src="{{ event.image_link_header }}" style=" width: 175px;"> 
+			{% else %}
+				<img src="{{ participant.event_image_link_header }}" style=" width: 175px;"> 
+			{% endif %}
+			<div>
+				<pre style="font-size: 1.4em;font-family: 'Times New Roman';font-style: italic;">{{ content }}</pre>
+			</div>
+		</div>
+
+		<p>{{ lang.qr_instrucion }}</p>
+		<div class="qr_codes" style="max-width: 500px;">
+			{% for inv in imgs %}
+				<p>{{ lang.clicking_on_qr }} </p>
+					<a href="{{ inv.link }}">
+						<div class="qr_code" align="center">
+							<h4>{{ inv.first_name }}</h4>
+							<img src="{{ inv.img }}" class="qr_img" style="height: 80%; max-height: 400px;">
+						</div>
+					</a>
+			{% endfor %}
+		</div>
+		
+
+
+			<a href="{{ participant.event_google_map_link }}">
+				<button align="center" class="button_go" style="height: 4vh; width: 80%; border-radius: 20px; background-color: black; color:  white; margin: 3vh 0;">{{ lang.how_to_get }}</button>
+			</a>
+
+			{% if participant.event_place_img %}
+				<img class="place-img" src="{{ participant.event_place_img }}" style="width: 80%;margin-left: 5%;margin-right:  5%; margin-bottom: -1vh;">
+			{% endif%}
+
+			{% if participant.event_google_map_iframe %}
+				<iframe src="{{ participant.event_google_map_iframe }}"></iframe>
+			{% endif%}
+		
+
+	{% if event %}
+		<p>{{ lang.contact }} <a href="mailto:{{ event.contact_to_organizators }}">{{ event.contact_to_organizators }}</a> </p> 
+	{% else %}
+		<p>{{ lang.contact }} <a href="mailto:{{ participant.event_contact_to_organizators }}">{{ participant.event_contact_to_organizators }}</a> </p> 
+	{% endif %}
+	
+	<b> W przypadku braku kodu QR w mailu zapraszamy na elektroniczą wersję zaproszenia dostępną pod adresami:</b>
+	<br>
+	{% for inv in imgs %}
+		<b>{{ inv.first_name }}</b>
+		<br>
+		<p>{{ inv.link }}</p>
+		<br>
+		
+	{% endfor %}
+
+	</div>
+
+
+</body>
+
+   

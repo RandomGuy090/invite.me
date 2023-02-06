@@ -1,0 +1,226 @@
+{% extends 'base.html' %}
+
+{% block content %}
+ <style type="text/css">
+     
+     body{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: auto;
+        background-color: #F4F4F4;
+
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        flex-grow: 1;
+     }
+     
+     input {
+        height: auto;
+        margin: 1vh;
+        min-height: 3vh;
+
+     }
+     textarea{
+        min-height: 15vh;
+        min-width: 15vw;
+        height: auto;
+        width: auto;
+     }
+
+     .container{
+        display: flex;
+        justify-content: center;
+        flex-grow: 1;
+     }
+     .container > div{
+        width: 20vw;
+     }
+
+     form{
+        display: flex;
+        justify-content: center;
+        align-content: center;
+        flex-direction: column;
+        /*width: 50vw;*/
+        height: auto;
+     }
+
+ </style>
+ {% if eventUpdateForm  %}
+ <div class="container" >
+
+
+    {% set content = content_invitation %}
+    {% include "invitation_mail.html" %}
+     
+	  {% if next %}
+               <form method="POST" action="{{ url_for('event.update', event_id=event.id, next=next) }}">
+            {% else%}
+               <form method="POST" action="{{ url_for('event.update', event_id=event.id ) }}">
+        {% endif %}
+        <h1>{{ lang.update_event }} {{ event.name }}</h1>
+
+	        <!-- <input type="text" name="name"> -->
+            <p>name</p>
+            {{ eventUpdateForm.name(value=event.name)}}
+
+        <p>date</p>
+          <input type="datetime-local" name="datetime" id="datetime"    value="{{event.date.strftime('%Y-%m-%dT%H:%M:%S')}}">
+
+          <p>delcaration_deadline</p>
+          <input type="datetime-local" name="delcaration_deadline" id="delcaration_deadline"    value="{{event.delcaration_deadline.strftime('%Y-%m-%dT%H:%M:%S')}}">
+
+
+
+ 
+
+            <!-- <p>time</p> -->
+            <!-- <p>{{ event.time }}</p>
+            <input type="time" name="time" id="time"  time={{event.time}} value={{event.time}} >-->
+         
+
+
+            <p>address</p>
+            {{ eventUpdateForm.address(value=event.address) }}
+            <p>google map link </p>
+            {{ eventUpdateForm.google_map_link(value=event.google_map_link) }}
+            <p>google map iframe</p>
+            {{ eventUpdateForm.google_map_iframe(value=event.google_map_iframe) }}
+            <p>header image</p>
+            {{ eventUpdateForm.image_link_header(value=event.image_link_header) }}
+
+            <p>image_link_footer</p>
+            {{ eventUpdateForm.image_link_footer(value=event.image_link_footer) }}
+            
+            <p>contact to organizators</p>
+            {{ eventUpdateForm.contact_to_organizators(value=event.contact_to_organizators) }}
+
+            <p>place imgae</p>
+            {{ eventUpdateForm.place_img(value=event.place_img) }}
+            <p>declaration content</p>
+            <textarea name="declaration_mail_content" id="declaration_mail_content">{{ event.declaration_mail_content }}</textarea>
+            <p>invitation content</p>
+            <textarea name="invitation_mail_content" id="invitation_mail_content">{{ event.invitation_mail_content }}</textarea>
+            {{ eventUpdateForm.submit }}
+            <p>
+                <p>tips:</p>
+                <table>
+
+                    <tr>
+                        <th>command</th>
+                        <th>meaning</th>
+                    </tr>
+
+                    <tr>
+                        <td> participant.participant_invitation_sent  </td>
+                        <td></td>
+                        </tr>
+                    <tr>
+                        <td> participant.participant_invitation_string  </td>
+                        <td></td>
+                        </tr>
+                    <tr>
+                        <td> participant.participant_declaration_string  </td>
+                        <td></td>
+                        </tr>
+                    <tr>
+                        <td> participant.participant_event_id  </td>
+                        <td></td>
+                        </tr>
+                    <tr>
+                        <td> participant.participant_declarated  </td>
+                        <td></td>
+                        </tr>
+                    <tr>
+                        <td> participant.participant_email  </td>
+                        <td></td>
+                        </tr>
+                    <tr>
+                        <td> participant.accompanying_person_id  </td>
+                        <td></td>
+                        </tr>
+                    <tr>
+                        <td> participant.accompanying_person_email  </td>
+                        <td></td>
+                        </tr>
+                    <tr>
+                        <td> participant.accompanying_first_name  </td>
+                        <td></td>
+                        </tr>
+                    <tr>
+                        <td> participant.accompanying_last_name  </td>
+                        <td></td>
+                        </tr>
+                    <tr>
+                        <td> participant.accompanying_invitation_string  </td>
+                        <td></td>
+                        </tr>
+                    <tr>
+                        <td> participant.event_name  </td>
+                        <td></td>
+                        </tr>
+                    <tr>
+                        <td> participant.event_google_map_link  </td>
+                        <td></td>
+                        </tr>
+                    <tr>
+                        <td> participant.event_google_map_iframe  </td>
+                        <td></td>
+                        </tr>
+                    <tr>
+                        <td> participant.event_address  </td>
+                        <td></td>
+                        </tr>
+                    <tr>
+                        <td> participant.event_invitation_mail_content  </td>
+                        <td></td>
+                        </tr>
+                    <tr>
+                        <td> participant.event_place_img  </td>
+                        <td></td>
+                        </tr>
+                    <tr>
+                        <td> participant.event_time  </td>
+                        <td></td>
+                        </tr>
+                    <tr>
+                        <td> participant.event_date  </td>
+                        <td></td>
+                    </tr>
+                </table>
+
+
+            </p>
+            <!-- input -->
+	        <!-- <input type="submit"> -->
+	    </form>
+    {% set content = content_declaration %}
+    {% include "declaration_mail.html" %}
+
+ </div>
+
+
+    {% for err in eventUpdateForm.errors %}
+        {% for error in eventUpdateForm.errors.get(err) %}
+
+        <div class="error">
+            <h3>{{err}} {{ error }}</h3>
+        </div>
+
+        {% endfor %}
+    {% endfor %}
+{% endif %}
+    {% with messages = get_flashed_messages() %}
+          {% if messages %}
+            <ul class=flashes>
+            {% for message in messages %}
+              <li>{{ message }}</li>
+            {% endfor %}
+            </ul>
+          {% endif %}
+    {% endwith %}
+
+
+{% endblock %}

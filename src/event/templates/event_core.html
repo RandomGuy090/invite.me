@@ -1,0 +1,123 @@
+{% block content %}
+
+
+
+
+         <style  scoped>
+            @import "{{ url_for('event.static', filename='styles/style.css') }} ";
+        </style>
+        <table>
+            
+            <tr>
+                <th>remove/update</th>
+                <th>id</th>
+                <th>name</th>
+                <th>event date</th>
+                <th>declaration deadline</th>
+                <th>address</th>
+                <th>send</th>
+                <th>event view</th>
+            </tr>
+
+            {% for event in events %}
+            <tr class="event" id="event-{{event.id}}">
+
+                <td>
+                    {% if user %}
+                        {% if user.superadmin %}
+                            {% if next %}
+                               <form method="POST" action="{{ url_for('event.delete', event_id=event.id, next=next) }}" class="event_remove">
+                            {% else%}
+                               <form method="POST" action="{{ url_for('event.delete', event_id=event.id) }}"  class="event_remove">
+                            {% endif %}
+                                <input type="submit" value="remove event" >
+                            </form>
+
+                            {% if next %}
+                               <a  href="{{ url_for('event.update', event_id=event.id, next=next) }}"  class="event_update">
+                            {% else%}
+                               <a  href="{{ url_for('event.update', event_id=event.id) }}"  class="event_update">
+                            {% endif %}
+                                <input type="submit" value="udpate_event" >
+                            </a>
+                            {% endif %}
+                        {% endif %}
+                    
+                </td>
+                        
+         
+                    <td>
+                        <p class="event_id">{{  event.id }}</p>
+                    </td>
+
+                    <td>
+                        <p class="event_name">{{ event.name }}</p>
+                    </td>
+                    
+                    <td>
+                        <p class="event_date">{{ event.date}}</p>
+                    </td>
+                    
+                    <td>
+                         <p class="event_time">{{ event.time }}</p>
+                    </td>
+                    
+                    <td>
+                         <p class="event_address">{{ event.address}}</p>
+                    </td>
+                        
+                    <td>
+                        {% if user %}
+                            {% if user.superadmin %}
+
+                                {% if next %}
+                                   <form method="POST" action="{{ url_for('declarate.send',  event=event.id, next=next) }}" class="event_declaration_send">
+                                    {% else%}
+                                        <form method="POST" action="{{ url_for('declarate.send',  event=event.id) }}" class="event_declaration_send">
+                                    {% endif %}
+
+                                        <input type="submit"  style="background-color: red;" value="send declaration">
+                                
+                                    </form>
+
+                                {% if next %}
+                                   <form method="POST" action="{{ url_for('invitation.send',  event=event.id, next=next) }}" class="event_invitation_send" >
+                                {% else%}
+                                    <form method="POST" action="{{ url_for('invitation.send',  event=event.id) }}" class="event_invitation_send">
+                                {% endif %}
+                                    <input type="submit" style="background-color: red;" value="send invitation">
+                                </form>
+                                    
+                                </form>
+                            {% endif %}
+                        {% endif %}
+                    </td>
+
+                    <td>
+                        <a href="{{ url_for('participant.get', event=event.id) }}">
+                            <button>event view</button>
+                        </a> 
+                    </td>
+
+                <!-- </div> -->
+                </tr>
+                {% endfor %}
+
+        </table>
+
+         {% with messages = get_flashed_messages() %}
+                  {% if messages %}
+                    <ul class=flashes>
+                    {% for message in messages %}
+                      <li>{{ message }}</li>
+                    {% endfor %}
+                    </ul>
+                  {% endif %}
+                {% endwith %}
+
+
+   
+
+   
+ 
+{% endblock %}

@@ -1,0 +1,49 @@
+/*nav	{
+	background-color: #1d1e42;
+	height: 100%;
+	color: white;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+
+/*width: 100vw;*/
+
+/*}
+
+nav > table > tbody{
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+}
+
+nav >  .event_post_form{
+	display: none;
+}
+nav > table > tbody >  .event{
+
+	display: flex;
+	color: white;
+	justify-content: space-between;
+	align-items: center;
+	height: 5vh;
+	width: 100%;
+
+}
+
+
+nav > table > tbody > .event > td > .event_remove,
+nav > table > tbody > .event > td > .event_id, 
+nav > table > tbody > .event > td > .event_address, 
+nav > table > tbody > .event > td > .event_date, 
+nav > table > tbody > .event > td > .event_invitation_send, 
+nav > table > tbody > .event > td > .event_declaration_send, 
+nav > table > tbody > .event > td > .event_time{
+	display: none;
+}
+
+nav > .event > a > button {
+	width: 5vw;
+	height: 4vh;
+}
+
+*/

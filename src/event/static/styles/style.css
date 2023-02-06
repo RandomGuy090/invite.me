@@ -1,0 +1,119 @@
+body{
+		display: flex;
+		flex-direction: column;
+		height: auto;
+		width: 100vw;
+		justify-content: center;
+		margin: 0;
+}
+
+
+
+/*form{
+	display: flex;
+	flex-direction: column;
+	width: 50%;
+	align-items: center;
+	justify-content: center;
+}
+form > * {
+	width: 100%;
+	height: 5vh;
+	margin: 1vh;
+	font-size: 1.5em;
+}
+form > textarea{
+	height: 7vh;
+}
+
+.event{
+	display: none;
+}*/
+
+
+
+/*content{
+	display: flex;
+	justify-content: center;
+	height: auto;
+}*/
+
+/*main{
+	display: flex;
+	flex-direction: column;
+	width: 90vw;
+	justify-content: start;
+
+}
+main > form {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+
+}
+
+main > form > * {
+	width: 50vw;
+	margin: 1vh;
+	height: 3vh;
+	border: 1px solid gray;
+}
+.event_remove{
+	background-color: red;
+}
+
+
+
+main > table{
+	display: flex;
+	background-color: green;
+	
+	justify-content: space-around;
+	align-items: center;
+	border: colapse;
+
+	border-collapse: collapse;
+
+}
+tr{
+	width: 100%;
+}
+
+td, th{
+	border: 1px solid black;
+
+} 
+*/
+
+/*
+
+content{
+	display: flex;
+	min-height: 100vh;
+	width: 100vw;
+}
+
+nav	{
+	height: 100vh;
+}
+
+main{
+	display: flex;
+	flex-direction: column;
+}
+
+main > table{
+	display: flex;
+height: 1000px;
+width: 1000px;
+border: 1px solid red;
+}
+
+tr, td{
+	border: 1px solid black;
+
+}
+td{
+	width: 100px;
+}*/

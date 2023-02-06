@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block content %}
+	<h1>LOGIN</h1>
+	{% if next %}
+		<form method="POST" action="{{ url_for('auth.login') }}?next={{ next }} ">
+	{% else %}
+		<form method="POST" action="{{ url_for('auth.login') }} ">
+
+	{% endif %}
+		 {{ form.hidden_tag() }}
+			 {{ form.email }}
+			 {{ form.password }}
+			 {{ form.submit() }}
+			{% if form.errors %}
+				{% for err in form.errors %}
+					{% for error in form.errors.get(err) %}
+
+					<div class="error">
+						<h3>{{err}} {{ error }}</h3>
+					</div>
+					{% endfor %}
+				{% endfor %}
+			{% endif %}
+
+	
+			<a href="{{ url_for('auth.register') }}">register</a>
+			
+	</form>
+
+
+{% endblock %}

@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block content %}
+	{% if not activated %}
+		
+		<h1>check your mail!</h1>
+		<h3>{{ user.email }}</h3>
+
+	{% else %}	
+		<h1>Thanks for authentication!</h1>
+
+	{% endif %}	
+
+	
+	<a href="{{ url_for('home.home') }}">go to home</a>
+	
+
+
+{% endblock %}

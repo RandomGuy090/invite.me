@@ -1,0 +1,99 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400&display=swap');
+
+body{
+	/*background-color: red;*/
+	font-family: inter;
+
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+	/*background-color: #F4F4F4;*/
+	background-color: #ffffff;
+	font-size: 1em;
+
+}
+
+.email{
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	width: 40vw;
+	box-shadow: 0px 0px 20px #747474;
+	padding: 3vh;
+	border-radius: 15px;
+}
+
+.invitaiton_content{
+	font-family: inter;
+	font-size: 1.5em;
+	width: 90%;
+}
+
+iframe{
+    width: 35vw;
+    height: 35vh;
+    border-radius: 15px;
+}
+
+.qr_codes{
+	display: flex;
+	justify-content: space-around;
+	width: 100%;
+	display-flex: row;
+}
+.qr_code{
+	margin: 2vw;
+	display: flex;
+	flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.qr_code > a > img{
+	height: 18vw;
+}
+
+button{
+	height: 5vh;
+	width: 10vw;
+	border-radius: 10px;
+	background-color: black;
+	color:  white;
+	margin: 3vh 0;
+}
+.place_img{
+	width: 100%;
+	margin-bottom: -1vh;
+}
+
+@media (max-width: 1100px) {
+	body{
+		font-size: 1em;
+
+	}
+	.email{
+		width: 80vw;
+	}	
+	iframe{
+		width: 100%;
+	}
+	button{
+		height: 4vh;
+		width: 20vw;
+		border-radius: 5vh;
+	}
+	.qr_codes{
+		flex-direction: column;
+	}
+	.qr_code > a > img{
+		height: 55vw;
+	}
+}
+
+.invited_ppl{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	text-align: center;
+}

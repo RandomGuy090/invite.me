@@ -1,0 +1,12 @@
+*{
+	margin: 0;
+	box-sizing: border-box;
+}
+body{
+	background-color: red;
+	display: flex;
+	flex-direction: row;
+	height: 100%;
+	width: 100%;
+}
+

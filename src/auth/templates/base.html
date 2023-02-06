@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>{{title}}</title>
+	</style>
+	 <script type="text/javascript" src="{{ url_for('home.static', filename='script/script.js') }} "></script>
+    <link rel="stylesheet" href="{{ url_for('home.static', filename='styles/style.css') }} ">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+{% block css %}
+{% endblock %}
+
+</head>
+<body>
+	{% block content %} {% endblock %}
+</body>
+</html>

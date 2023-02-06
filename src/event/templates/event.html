@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+
+<content>
+      {% include "header.html" %}
+      
+      {% include "nav.html" %}
+
+   <main>
+      <style type="text/css">
+             @import "{{ url_for('event.static', filename='styles/style.css') }} ";
+
+      </style>
+         
+         {% include "event_core.html" %}
+         {% include "event_create.html" %}
+
+         <h3> add divisions</h3>
+        {% include 'division_core.html' %}
+
+   </main>
+</content>
+ 
+{% endblock %}

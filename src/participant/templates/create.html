@@ -1,0 +1,45 @@
+{% block content %}
+
+		 {% if next %}
+				<form method="POST" action="{{ url_for('participant.create', next=next) }}" enctype="multipart/form-data">
+            {% else%}
+				<form method="POST" action="{{ url_for('participant.create') }}" enctype="multipart/form-data">
+               	
+            {% endif %}
+
+				 {{ participantCreateForm.email }}
+				 {{ participantCreateForm.first_name }}
+				 {{ participantCreateForm.last_name }}
+				 {{ participantCreateForm.event }}
+				 {{ participantCreateForm.file }}
+				 {{ participantCreateForm.division }}
+				 {{ participantCreateForm.is_vip.label }}
+				 {{ participantCreateForm.is_vip }}
+
+				 {{ participantCreateForm.submit() }}
+				 
+				 {% with messages = get_flashed_messages() %}
+				  {% if messages %}
+				    <ul class=flashes>
+				    {% for message in messages %}
+				      <li>{{ message }}</li>
+				    {% endfor %}
+				    </ul>
+				  {% endif %}
+				{% endwith %}
+				
+				{% if participantCreateForm.errors %}
+					{% for err in participantCreateForm.errors %}
+						{% for error in participantCreateForm.errors.get(err) %}
+
+						<div class="error">
+							<h3>{{err}} {{ error }}</h3>
+						</div>
+						{% endfor %}
+					{% endfor %}
+				{% endif %}
+				
+		</form>
+
+
+{% endblock %}

@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <link rel="stylesheet" href="{{ url_for('declarate.static', filename='styles/style.css') }} ">
+
+       {% if next %}
+            <form method="POST" action="{{ url_for('declarate.create', next=next, declaration_string=declaration_string) }}" enctype="multipart/form-data">
+       {% else%}
+            <form method="POST" action="{{ url_for('declarate.create', declaration_string=declaration_string) }}" enctype="multipart/form-data">
+                  
+       {% endif %}
+    
+
+            {% if participant and participant.participant_canceled %}
+                <h1>{{ lang.declaration_cancelled }}</h1>
+                <h3>{{ participant.email }}</h3>
+                <button style="background-color: black;">
+                   <a href="{{ url_for('participant.cancel', declaration_string=declaration_string, next=url_for('declarate.get', declaration_string=declaration_string)) }}">{{ lang.rejoin_event }}</a>
+               </button>
+            {% endif %}
+
+      
+      {% if declarationCreateForm and not participant.participant_canceled %}
+            <h1>{{ lang.declaration_for }}: {{ participant.event_name }}</h1>
+            {{ declarationCreateForm.csrf_token }}
+            
+               {% include "declaration_post.html" %}
+
+    {% endif %}
+
+       {% if participant and not declarationCreateForm and not participant.participant_canceled %}
+            {{ participant.first_name }}
+            {{ participant.last_name }}
+
+
+          <h2>{{ lang.already_declarated }} {{ participant.delcaration_deadline.strftime('%d.%m.%Y') }}</h2>
+
+          <a href="{{ url_for('declarate.update', declaration_string=declaration_string) }}">{{ lang.update_declaration }}  {{ participant.delcaration_deadline.strftime('%d.%m.%Y') }}</a>
+
+
+
+       {% endif %} 
+
+{% with messages = get_flashed_messages() %}
+  {% if messages %}
+    <ul class=flashes>
+    {% for message in messages %}
+      <li>{{ message }}</li>
+    {% endfor %}
+    </ul>
+  {% endif %}
+{% endwith %}
+
+
+    <address> {{  lang.contact }}  {{ participant.contact_to_organizators }} </address>
+      </form>
+
+{% endblock %}

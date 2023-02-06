@@ -1,0 +1,68 @@
+
+{% block content %}
+<table>
+<tr>
+	<th>remove</th>
+	<th>id</th>
+	<th>division_name</th>
+	<th>division_leader</th>
+	<th>event_name</th>
+
+</tr>
+	{% for division in divisions %}
+	<tr>
+
+	<div class="participants">
+		
+		<td>
+			{% if next %}
+	           <form method="POST" action="{{ url_for('division.delete', division_id=division.division_id, next=next) }}">
+	    	{% else%}
+				<form method="POST" action="{{ url_for('division.delete', division_id=division.division_id) }}">
+	    	{% endif %}
+	           	<input type="submit" value="remove division"></form>
+		</td>
+			
+
+		<td>{{  division.division_id }}</td>
+		<td>{{  division.division_name }}</td>
+		<td> {{  division.division_leader }}</td>
+		<td>{{  division.event_name }}</td>
+		<td>	<a href="{{ url_for('participant.get', division=division.division_id, event=division.event_id) }}"><button>group view</button></a> </td>
+		<td>
+			
+       {% if next %}
+       <form method="POST" action="{{ url_for('declarate.send',  event=division.event_id, division=division.division_id, next=next) }}">
+        {% else%}
+            <form method="POST" action="{{ url_for('declarate.send',  event=division.event_id, division=division.division_id) }}">
+        {% endif %}
+
+            <input type="submit"  style="background-color: red;" value="send declaration">
+        </form>
+    
+		</td>
+
+		<td>
+			
+       {% if next %}
+       <form method="POST" action="{{ url_for('invitation.send',  event=division.event_id, division=division.division_id, next=next) }}">
+        {% else%}
+            <form method="POST" action="{{ url_for('invitation.send',  event=division.event_id, division=division.division_id) }}">
+        {% endif %}
+
+            <input type="submit"  style="background-color: red;" value="send invitation">
+        </form>
+    
+		</td>
+
+
+
+	</div>
+	</tr>
+		{% endfor %}
+</table>
+	
+ {% include "division_create.html" %}
+
+
+{% endblock %}

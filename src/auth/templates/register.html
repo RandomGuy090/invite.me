@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block content %}
+	<h1>REGISTER</h1>
+	<form method="POST" action="{{ url_for('auth.register') }} " novalidate>
+		 {{ form.hidden_tag() }}
+			 {{ form.email }}
+			 {{ form.password }}
+			 {{ form.confirm }}
+			 {{ form.submit() }}
+
+			{% if form.errors %}
+				{% for err in form.errors %}
+					{% for error in form.errors.get(err) %}
+
+					<div class="error">
+						<h3>{{err}} {{ error }}</h3>
+					</div>
+					{% endfor %}
+				{% endfor %}
+			{% endif %}
+
+			<a href="{{ url_for('auth.login') }}">login</a>
+		
+			
+	</form>
+
+
+{% endblock %}

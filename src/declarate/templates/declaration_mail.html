@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title></title>
+</head>
+
+
+<body  min-width="220px" align="center" width="100%" style="background-color:  #F4F4F4;">
+	{% if content_declaration %}
+		{% set content = content_declaration %}
+	{% endif %}
+	<div class="email" align="center" style="background-color: white; border-radius: 15px; box-shadow: 0px 0px 20px #747474;min-width: 30vw;width: 100%; border: 1px solid #C5C5C5; padding-bottom: 2vh">
+		
+		<h1 style="font-family: 'Times New Roman';font-style: italic;">{{ lang.declaration_for }}: {{ participant.event_name }} </h1>
+		<div style="padding: 2vw 2vw 0 2vw;">
+			<!-- <img src="https://cdn.discordapp.com/attachments/808678456006934548/1041085676105498675/image.png"style=" width: 175px;"> -->
+		{% if event %}
+			<img src="{{ event.image_link_header }}" style=" width: 175px;"> 
+		{% else %}
+			<img src="{{ participant.event_image_link_header }}" style=" width: 175px;"> 
+		{% endif %}
+			<p>
+				<pre style="font-size: 1.4em; font-family: 'Times New Roman';font-style: italic;">{{ content }}</pre>
+			</p>
+		</div>
+
+	<a href="{{ link }} " style="margin-top: -1vh">
+		<p>{{ lang.click_to_fullfill_declaration }}</p>
+	
+		<button style="height: 4vh; border-radius: 20px; background-color: black; color:  white; margin: 2vh 0;"> 
+		{{ lang.declaration_for }}: {{ participant.event_name }}
+		</button>
+	</a>
+	{% if event %}
+		<p>{{ lang.contact }} <a href="mailto:{{ event.contact_to_organizators }}">{{ event.contact_to_organizators }}</a> </p> 
+	{% else %}
+		<p>{{ lang.contact }} <a href="mailto:{{ participant.event_contact_to_organizators }}">{{ participant.event_contact_to_organizators }}</a> </p> 
+	{% endif %}
+
+
+		{% if participant.event_place_img %}
+			<img class="place-img" src="{{ participant.event_place_img }}" style="width: 80%;margin-left: 5%;margin-right:5%; margin-bottom: -1vh; margin-top: 3vh;">
+		{% endif%}
+
+		{% if participant.event_google_map_iframe %}
+			<iframe src="{{ participant.event_google_map_iframe }}"></iframe>
+		{% endif%}
+
+	</div>
+
+   
+</body>
+
+ 

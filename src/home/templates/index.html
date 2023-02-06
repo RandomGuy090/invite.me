@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block css %}
+  <link rel="stylesheet" href="{{ url_for('home.static', filename='styles/index.css') }} ">
+{% endblock %}
+
+{% block content %}
+
+{% include 'header.html' %}
+
+{% include "nav.html" %}
+{% include 'event_create.html' %}
+  
+
+   
+    <main>
+
+        <br>
+        
+
+        {% include 'participants_core.html' %}
+
+        <h3> add divisions</h3>
+        {% include 'division_core.html' %}
+
+        {% if user.superadmin %}
+            <h3> add administrators</h3>
+            {% include 'get_admin.html' %}
+        {% endif %}
+
+        
+        <br>
+    </main>
+
+
+{% endblock %}

@@ -1,0 +1,21 @@
+
+
+<style type="text/css">
+    @import "{{ url_for('home.static', filename='styles/header.css') }}";
+</style>
+ <header>
+    <div class="headercontent">
+        {% if user %}
+            <p>You are logged as: {{ user.email }}, and that means you are: 
+            {% if user.superadmin %}
+                superadministrator
+            {% else %}
+                administrator
+            {% endif %}
+        {% endif %}
+        </p>
+    </div>
+    <div>
+        <a href=" {{ url_for('auth.logout') }}"><button>Logout</button></a>
+    </div>
+</header>

@@ -1,0 +1,26 @@
+    
+<nav>
+  <style type="text/css" scoped>
+    @import "{{ url_for('home.static', filename='styles/nav.css') }} ";
+</style>
+
+    <h1>invite.me</h1>
+    <p>events list</p>
+    <!-- <ul> -->
+        <!-- <li> <button> event1 </button> </li>  
+        <li> <button> event2 </button> </li>  
+        <li> <button> event3 </button> </li>  
+        <li> <button> event4 </button> </li>  
+        <li> <button> event5 </button> </li>  
+-->
+        <h3>add events</h3>
+        {% include 'event_core.html' %}
+
+    <!-- </ul> -->
+       <a href="/event/get">
+        <button> add new event </button> 
+       </a>
+
+
+
+</nav>
