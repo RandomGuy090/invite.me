@@ -2,7 +2,7 @@ invite.me
 ===
 
 # What is it?
-Invite.me is webapp created for my prom night. We need a software able to create and send invitations, and gather the feedback from participants.
+Invite.me is webapp created for my prom night. We needed a software able to create and send invitations, and gather the feedback from participants.
 
 # How does it work?
 I have wrote it with python's Flask framework. Because it became a little "too big" than I expected I have used blueprints for easier maintain. Project has MVC-based architecture, with two "REST" endpoints. REST is in quotes because it has only one common feature - using JSON (xD). 
