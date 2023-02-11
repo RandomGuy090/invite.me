@@ -32,6 +32,9 @@ def create():
 				#parsing data from file
 				filename = secure_filename(form.file.data.filename)
 				x = csv_parse(file=form.file.data)
+				print(x)
+				print(x)
+				print(x)
 
 				for elem in x:
 					#none because try is able not to assign 
@@ -42,10 +45,20 @@ def create():
 						for  field in field_list:
 							if not elem.get(field):
 								raise Exception(f"column not defined ({field})")
-
-
-						# create new_participant
-						new_participant = create_participant(first_name=elem.get("first_name"), 
+						if elem.get("divison") == None:
+							elem["divison"] = form.division.data
+						
+						if elem.get("division_leader") == None:
+							# create new_participant
+							new_participant = create_participant(first_name=elem.get("first_name"), 
+									last_name=elem.get("last_name"), 
+									email=elem.get("email"), 
+									added_by_id=current_user.id, 
+									event=form.event.data,
+									is_vip=elem.get("is_vip"),
+									division=form.division.data)
+						else:
+							new_participant = create_participant(first_name=elem.get("first_name"), 
 								last_name=elem.get("last_name"), 
 								email=elem.get("email"), 
 								added_by_id=current_user.id, 

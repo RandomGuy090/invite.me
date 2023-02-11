@@ -10,12 +10,16 @@ def csv_parse(file):
 		sub_ret = {}
 		elem = elem.decode("utf-8")
 		elem = elem.replace("\n","")
+		elem = elem.replace("\r","")
+		elem = elem.replace(";",",")
 		elem = elem.split(",")
 		
 		if first_line == "":
 			# first_line = elem.split(",")
 			first_line = elem
 			continue
+
+		print(first_line)
 
 		try:
 			if first_line.count("email")>0: sub_ret["email"] = elem[first_line.index("email")]
@@ -36,6 +40,7 @@ def csv_parse(file):
 			sub_ret["is_vip"] = False
 
 		ret.append(sub_ret)
-
+	print(first_line)
+	print(ret)
 	return ret
 

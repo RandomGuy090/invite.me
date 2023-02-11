@@ -67,7 +67,8 @@ def update():
 		.add_columns(
 			Event.name.label("event_name"),
 			Event.delcaration_deadline.label("event_declaration_deadline"),
-			Event.contact_to_organizators.label("event_contact_to_organizators")
+			Event.contact_to_organizators.label("event_contact_to_organizators"),
+			Event.delcaration_deadline.label("delcaration_deadline")
 		)\
 		.where(Participants.declaration_string == declaration_string)
 		
@@ -86,8 +87,10 @@ def update():
 
 	if qr.invitation_sent:
 		flash(lang.invitation_already_sent)
+		print("xDDDDDDDDDDDDDDDDDD")
+		print(lang)
 
-		return render_template("declaration.html")
+		return render_template("declaration.html", lang=lang, participant=qr)
 	
 	if form.validate_on_submit():
 
@@ -119,6 +122,9 @@ def update():
 		acc = None
 		if form.accompanying_person_first_name.data != "" and form.accompanying_person_last_name.data  != "":
 			acc = Accompanying.query.filter_by(id = qr.id_acc).first()
+			if not acc.invitation:
+				acc.invitation_string = unique_str(Accompanying, 64, field = "invitation_string")
+
 			if not acc:
 				acc = Accompanying()
 

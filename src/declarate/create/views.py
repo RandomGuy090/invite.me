@@ -2,7 +2,7 @@ from flask import render_template, redirect, session, url_for, request
 from flask.views import View
 
 from src.models import User
-from src.config import db, app, mail
+from src.config import db, app, mail, lang
 from flask_login import login_user, current_user, login_required
 from wtforms.validators import InputRequired
 

@@ -71,6 +71,9 @@ def update():
 		if form.place_img.data: event.place_img = form.place_img.data
 		if form.declaration_mail_content.data: event.declaration_mail_content = form.declaration_mail_content.data
 		if form.invitation_mail_content.data: event.invitation_mail_content = form.invitation_mail_content.data
+		if form.image_link_header.data: event.image_link_header = form.image_link_header.data
+		if form.image_link_footer.data: event.image_link_footer = form.image_link_footer.data
+		if form.contact_to_organizators.data: event.contact_to_organizators = form.contact_to_organizators.data
 		
 		if form.contact_to_organizators.data: event.contact_to_organizators = form.contact_to_organizators.data
 		

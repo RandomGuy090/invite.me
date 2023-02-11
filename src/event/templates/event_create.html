@@ -1,29 +1,60 @@
  
  {% if eventCreateForm  %}
+ <table>
+ 
+    <th>
+         <td>event name</td>
+         <td>event date</td>
+         <td>declaration deadline</td>
+         <td>event address</td>
+         <td>image link in header</td>
+         <td>image link in footer</td>
+         <td>google map link</td>
+         <td>google map iframe</td>
+         <td>place img</td>
+         <td>declaration email content</td>
+         <td>invitation email content</td>
+         <td>contact to the organizators</td>
+         <td>submit</td>
+    </th>
+    <tr>
+           <td>
+        
 	  {% if next %}
                <form method="POST" action="{{ url_for('event.create', next=next) }}" class="event_post_form">
             {% else%}
                <form method="POST" action="{{ url_for('event.create') }}" class="event_post_form">
         {% endif %}
+           </td>
 
 	        <!-- <input type="text" name="name"> -->
+           
+           <td>
+               
             {{ eventCreateForm.name }}
+            </td>
+                
+            <td>
                       <input type="datetime-local" name="datetime" id="datetime" >
-                      <input type="datetime-local" name="delcaration_deadline" id="delcaration_deadline" >
+           </td>
+           <td>
 
-            {{ eventCreateForm.address }}
-            {{ eventCreateForm.image_link_header }}
-            {{ eventCreateForm.image_link_footer }}
-            {{ eventCreateForm.google_map_link }}
-            {{ eventCreateForm.google_map_iframe }}
-            {{ eventCreateForm.place_img }}
-            {{ eventCreateForm.declaration_mail_content }}
-            {{ eventCreateForm.invitation_mail_content }}
-            {{ eventCreateForm.contact_to_organizators }}
-            {{ eventCreateForm.submit }}
+                      <input type="datetime-local" name="delcaration_deadline" id="delcaration_deadline" >
+            </td>
+
+            <td>{{ eventCreateForm.address }}
+            <td>{{ eventCreateForm.image_link_header }}
+            <td>{{ eventCreateForm.image_link_footer }}
+            <td>{{ eventCreateForm.google_map_link }}
+            <td>{{ eventCreateForm.google_map_iframe }}
+            <td>{{ eventCreateForm.place_img }}
+            <td>{{ eventCreateForm.declaration_mail_content }}
+            <td>{{ eventCreateForm.invitation_mail_content }}
+            <td>{{ eventCreateForm.contact_to_organizators }}
+            <td>{{ eventCreateForm.submit }}</td>
             
 	    </form>
-
+    </tr>
 
     {% for err in eventCreateForm.errors %}
         {% for error in form.errors.get(err) %}
@@ -34,4 +65,5 @@
 
         {% endfor %}
     {% endfor %}
+ </table>
 {% endif %}
